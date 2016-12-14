@@ -5,7 +5,7 @@ var loadPag = function(){
 	carouselSlider();
 	showMap();
 	filterView();
-	// ajaxAirbnb();
+	pegarMenu();
 }
 
 
@@ -82,7 +82,7 @@ $('#next').click(function() {
   var d = $(".slider-carrusel");
   var itemAmt = d.length;
   if (i < 0) {
-    i = itemAmt + 1;
+	i = itemAmt + 1;
   }
   carouselSlider();
 });
@@ -92,7 +92,7 @@ $('#preview').click(function() {
   var d = $(".slider-carrusel");
   var itemAmt = d.length;
   if (i > 1) {
-    i = itemAmt - 1;
+	i = itemAmt - 1;
   }
   carouselSlider();
 });
@@ -151,8 +151,8 @@ var showMap = function(){
 
 var filterView = function(){
 	$("#buttonFilter").click(function(){
-    $(".option-advancedFilter").fadeToggle();
-    $(".container-results").toggleClass("ocultar");
+	$(".option-advancedFilter").fadeToggle();
+	$(".container-results").toggleClass("ocultar");
 	});
 }
 
@@ -166,11 +166,11 @@ var templateResults = '<div class="col-md-6 col-sm-6 col-xs-12 carousel">'+
 												'</div>'+
 												'<span class="hearth glyphicon glyphicon-heart-empty"></span>'+
 												'<span class="hearth-2 glyphicon glyphicon-heart"></span>'+
-												'<div class="cost">' + 
+												'<div class="cost">' +
 													'<strong>{{cost}}</strong>' +
-													'<span class="ray glyphicon glyphicon-flash"></span>'+ 
+													'<span class="ray glyphicon glyphicon-flash"></span>'+
 												'</div>'+
-												'<div class="owner">' + 
+												'<div class="owner">' +
 												  '<img src="{{imgp}}" alt="Owner" class="photo-owner">'+
 												'</div>'+
 												'<h4>{{title}}</h4>'+
@@ -198,7 +198,7 @@ $("#search-location").change(function(){
 			var child = $("#eachresult").children()
 			child.remove();
 			$("#eachresult").append(complete);
-			
+
 		}else if (valueInputSearch.value == sanIsidroCity){
 			$.each(response.results2, function(i, homes){
 				complete += templateResults
@@ -214,3 +214,14 @@ $("#search-location").change(function(){
 		}
 	});
 });
+
+var menu = $(".menu3");
+var altura = menu.offset().top;
+var pegarMenu = function(){
+	menu.removeClass("hidden");
+	if ( $(window).scrollTop() > altura ){
+		menu.addClass("sticky")
+	} else {
+		menu.removeClass('sticky');
+	}
+}

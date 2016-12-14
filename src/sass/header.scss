@@ -1,5 +1,5 @@
 @import "_variables";
-
+@import "_mixins";
 .slider{
 	.menu{
 		background-color: transparent;
@@ -21,6 +21,53 @@
 			padding-left:9%;
 		}
 	}
+}
+.menu-static{
+	.menu3{
+		background-color: white;
+		border-bottom:2px solid $color-menu-botton;
+		position: absolute;
+		width:100%;
+		margin-top: 0%;
+		z-index: 1;
+		a{
+			color: black;
+			padding-left:9%;
+		}
+		.menu-links{
+			padding-top: 1%;
+		}
+		.airbnb-logo{
+			padding-bottom: 10%;
+			padding-right: 20%;
+			padding-top: 15%;
+			margin-left: 3%;
+			border-right: 1px solid $color-menu-botton;
+		}
+		.search{
+			margin-top: 7%;
+		}
+		.buscador-header{
+			position: absolute;
+			border: none;
+			font-size: 115%;
+			margin-top: 2%;
+			width: 300%;
+			margin-left: 0%;
+			padding-top: 5%;
+			padding-bottom: 6%;
+			padding-left: 5%;
+		}
+		.buscador-header:hover{
+			border: transparent;
+		}
+	}
+}
+.sticky{
+	webkit-transition: all 0.3s;
+	   position: fixed;
+	   width: 100%;
+	   top:0;
 }
 
 @media only screen and (max-width:320px){
