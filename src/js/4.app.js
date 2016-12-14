@@ -5,8 +5,16 @@ var loadPag = function(){
 	carouselSlider();
 	showMap();
 	filterView();
-	pegarMenu();
-}
+	var menu = $(".menu3");
+	var altura = menu.offset().top;
+	var pegarMenu = function(){
+		menu.removeClass("hidden");
+		if ( $(window).scrollTop() > altura ){
+			menu.removeClass("hidden");
+			menu.addClass("sticky");
+		}
+	}
+	}
 
 
 $(document).ready(loadPag);
@@ -64,37 +72,37 @@ var carouselExperiences = function(){
 }
 
 var slideIndex = 0;
-	var i = 0;
+var i = 0;
 var carouselSlider = function(){
 	var x = document.querySelectorAll(".slider-carrusel");
 	for (i = 0; i < x.length; i++) {
-	  x[i].style.display = "none";
+		x[i].style.display = "none";
 	}
 	slideIndex++;
 	if (slideIndex > x.length) {slideIndex = 1}
-	  $(x[slideIndex-1]).fadeIn(20);
+	$(x[slideIndex-1]).fadeIn(20);
 }
 
 var set = setInterval(carouselSlider, 10000);
 $('#next').click(function() {
-  clearInterval(carouselSlider);
-  i += 1;
-  var d = $(".slider-carrusel");
-  var itemAmt = d.length;
-  if (i < 0) {
-	i = itemAmt + 1;
-  }
-  carouselSlider();
+	clearInterval(carouselSlider);
+	i += 1;
+	var d = $(".slider-carrusel");
+	var itemAmt = d.length;
+	if (i < 0) {
+		i = itemAmt + 1;
+	}
+	carouselSlider();
 });
 
 $('#preview').click(function() {
-  // clearInterval(carouselSlider);
-  var d = $(".slider-carrusel");
-  var itemAmt = d.length;
-  if (i > 1) {
-	i = itemAmt - 1;
-  }
-  carouselSlider();
+	// clearInterval(carouselSlider);
+	var d = $(".slider-carrusel");
+	var itemAmt = d.length;
+	if (i > 1) {
+		i = itemAmt - 1;
+	}
+	carouselSlider();
 });
 
 var showMap = function(){
@@ -115,34 +123,34 @@ var showMap = function(){
 	var input =  document.getElementById("search-location");
 
 	var autocomplete = new google.maps.places.Autocomplete(input);
-	  autocomplete.bindTo('bounds', map);
+	autocomplete.bindTo('bounds', map);
 
-	 var marker = new google.maps.Marker({
+	var marker = new google.maps.Marker({
 		map: map,
 		anchorPoint: new google.maps.Point(0, -29)
 	});
 
-	 autocomplete.addListener('place_changed', function() {
+	autocomplete.addListener('place_changed', function() {
 		marker.setVisible(false);
 		var place = autocomplete.getPlace();
 		if (!place.geometry) {
-		  window.alert("Autocomplete's returned place contains no geometry");
-		  return;
+			window.alert("Autocomplete's returned place contains no geometry");
+			return;
 		}
 
 		// If the place has a geometry, then present it on a map.
 		if (place.geometry.viewport) {
-		  map.fitBounds(place.geometry.viewport);
+			map.fitBounds(place.geometry.viewport);
 		} else {
-		  map.setCenter(place.geometry.location);
-		  map.setZoom(17);  // Why 17? Because it looks good.
+			map.setCenter(place.geometry.location);
+			map.setZoom(17);  // Why 17? Because it looks good.
 		}
 		marker.setIcon(/** @type {google.maps.Icon} */({
-		  url: place.icon,
-		  size: new google.maps.Size(71, 71),
-		  origin: new google.maps.Point(0, 0),
-		  anchor: new google.maps.Point(17, 34),
-		  scaledSize: new google.maps.Size(35, 35)
+			url: place.icon,
+			size: new google.maps.Size(71, 71),
+			origin: new google.maps.Point(0, 0),
+			anchor: new google.maps.Point(17, 34),
+			scaledSize: new google.maps.Size(35, 35)
 		}));
 		marker.setPosition(place.geometry.location);
 		marker.setVisible(true);
@@ -151,31 +159,31 @@ var showMap = function(){
 
 var filterView = function(){
 	$("#buttonFilter").click(function(){
-	$(".option-advancedFilter").fadeToggle();
-	$(".container-results").toggleClass("ocultar");
+		$(".option-advancedFilter").fadeToggle();
+		$(".container-results").toggleClass("ocultar");
 	});
 }
 
 
 
 var templateResults = '<div class="col-md-6 col-sm-6 col-xs-12 carousel">'+
-												'<div id="carousel-result-1" class="owl-carousel owl-theme">'+
-													'<div class="item"><img src="{{img1}}" alt="Room" class="img-json"></div>'+
-													// '<div class="item"><img src="{{img2}}" alt="Room"></div>'+
-													// '<div class="item"><img src="{{img3}}" alt="Room"></div>'+
-												'</div>'+
-												'<span class="hearth glyphicon glyphicon-heart-empty"></span>'+
-												'<span class="hearth-2 glyphicon glyphicon-heart"></span>'+
-												'<div class="cost">' +
-													'<strong>{{cost}}</strong>' +
-													'<span class="ray glyphicon glyphicon-flash"></span>'+
-												'</div>'+
-												'<div class="owner">' +
-												  '<img src="{{imgp}}" alt="Owner" class="photo-owner">'+
-												'</div>'+
-												'<h4>{{title}}</h4>'+
-												'<p>{{detail}}</p>'+
-											'</div>';
+	'<div id="carousel-result-1" class="owl-carousel owl-theme">'+
+	'<div class="item"><img src="{{img1}}" alt="Room" class="img-json"></div>'+
+	// '<div class="item"><img src="{{img2}}" alt="Room"></div>'+
+	// '<div class="item"><img src="{{img3}}" alt="Room"></div>'+
+	'</div>'+
+	'<span class="hearth glyphicon glyphicon-heart-empty"></span>'+
+	'<span class="hearth-2 glyphicon glyphicon-heart"></span>'+
+	'<div class="cost">' +
+	'<strong>{{cost}}</strong>' +
+	'<span class="ray glyphicon glyphicon-flash"></span>'+
+	'</div>'+
+	'<div class="owner">' +
+	'<img src="{{imgp}}" alt="Owner" class="photo-owner">'+
+	'</div>'+
+	'<h4>{{title}}</h4>'+
+	'<p>{{detail}}</p>'+
+	'</div>';
 
 // var templateResults = '<div class="col-md-6 col-sm-6 col-xs-12 carousel">{{precio}}</div>';
 var valueInputSearch = document.getElementById("search-location");
@@ -189,11 +197,11 @@ $("#search-location").change(function(){
 		if (valueInputSearch.value == mirafloresCity){
 			$.each(response.results1, function(i, homes){
 				complete += templateResults
-												.replace("{{img1}}", homes.img1)
-												.replace("{{cost}}", homes.price)
-												.replace("{{imgp}}", homes.owner)
-												.replace("{{title}}", homes.title)
-												.replace("{{detail}}", homes.datails);
+					.replace("{{img1}}", homes.img1)
+					.replace("{{cost}}", homes.price)
+					.replace("{{imgp}}", homes.owner)
+					.replace("{{title}}", homes.title)
+					.replace("{{detail}}", homes.datails);
 			});
 			var child = $("#eachresult").children()
 			child.remove();
@@ -202,11 +210,11 @@ $("#search-location").change(function(){
 		}else if (valueInputSearch.value == sanIsidroCity){
 			$.each(response.results2, function(i, homes){
 				complete += templateResults
-												.replace("{{img1}}", homes.img1)
-												.replace("{{cost}}", homes.price)
-												.replace("{{imgp}}", homes.owner)
-												.replace("{{title}}", homes.title)
-												.replace("{{detail}}", homes.datails);
+					.replace("{{img1}}", homes.img1)
+					.replace("{{cost}}", homes.price)
+					.replace("{{imgp}}", homes.owner)
+					.replace("{{title}}", homes.title)
+					.replace("{{detail}}", homes.datails);
 			});
 			var child = $("#eachresult").children()
 			child.remove();
@@ -214,14 +222,3 @@ $("#search-location").change(function(){
 		}
 	});
 });
-
-var menu = $(".menu3");
-var altura = menu.offset().top;
-var pegarMenu = function(){
-	menu.removeClass("hidden");
-	if ( $(window).scrollTop() > altura ){
-		menu.addClass("sticky")
-	} else {
-		menu.removeClass('sticky');
-	}
-}
